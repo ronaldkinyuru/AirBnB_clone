@@ -23,7 +23,7 @@ class BaseModel:
 # Example usage
 if __name__ == "__main__":
     # Create an instance of BaseModel
-    base_model = BaseModel()
+    base_model = BaseModel ()
 
     # Print the object as string
     print(str(base_model))
