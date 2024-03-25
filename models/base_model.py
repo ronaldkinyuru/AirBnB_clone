@@ -2,11 +2,16 @@ import uuid
 from datetime import datetime
 
 class BaseModel:
-    def __init__(self):
-        self.id = str(uuid.uuid4())  # Generate unique ID
-        self.created_at = datetime.now()  # Set created_at to current datetime
-        self.updated_at = self.created_at  # Set updated_at to current datetime
-
+    """ defines all common attributes/methods for other classes:"""
+    def __init__(self, *args, **kwargs):
+        
+        self.id = str(uuid.uuid4())  # Generate unique ID convert to string - assign with an uuid when an instance is created
+        self.created_at = datetime.now()  # datetime - assign with the current datetime when an instance is created
+        self.updated_at = self.created_at  # Set updated_at to current datetimedatetime - assign with the current datetime when an instance is created and it will be updated every time you change your object
+        
+        if **kwargs is not ():
+            
+            
     def save(self):
         self.updated_at = datetime.now()  # Update updated_at with current datetime
 
