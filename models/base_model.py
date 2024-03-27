@@ -4,37 +4,37 @@ Module for the BaseModel class.
 """
 import uuid
 from datetime import datetime
-import models
+#import models
 
 
 class BaseModel:
     def __init__(self, *args, **kwargs):
-        time_format = "%Y-%m-%dT%H:%M:%S.%f"
-        self.id = str(uuid.uuid4())
-        self.created_at = datetime.utcnow()
-        self.updated_at = datetime.utcnow()
-        
-        if kwargs:
+       if kwargs:
             for key, value in kwargs.items():
-                if key == "__class__":
+                if key == '__class__':
                     continue
-                elif key == "created_at" or key == "updated_at":
-                    setattr(self, key, datetime.strptime(value, time_format))
+                elif key in ('created_at, updated_at'):
+                    setattr(self, key, datetime.fromisoformat(value))
                 else:
                     setattr(self, key, value)
-
-        models.storage.new(self)
+       else:
+            self.id = str(uuid.uuid4())
+            self.created_at = self.updated_at = datetime.now()
+            from models import storage
+            storage.new(self)
+       # models.storage.new(self)
 
     def save(self):
         """
-
+        save(self)
         """
         self.updated_at = datetime.utcnow()
-        models.storage.save()
+        from models import storage
+        storage.save()
 
     def to_dict(self):
         """
-
+           uses inst_dict 
         """
         inst_dict = self.__dict__.copy()
         inst_dict["__class__"] = self.__class__.__name__
@@ -45,7 +45,7 @@ class BaseModel:
 
     def __str__(self):
         """
-
+return f"[{self.__class__.__name__}] ({self.id}) {self.__dict__}" also an option
         """
         class_name = self.__class__.__name__
         return "[{}] ({}) {}".format(class_name, self.id, self.__dict__)
