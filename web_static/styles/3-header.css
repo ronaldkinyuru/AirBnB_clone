@@ -1,5 +1,5 @@
 header {
-	color: white;
+	background-color: white;
 	height: 70px;
 	width: 100%;
 	border-bottom: 1px solid #CCCCCC;
@@ -8,5 +8,4 @@ header {
 .logo {
 	padding-left: 20px;
 	align-items: center;
-
 }
